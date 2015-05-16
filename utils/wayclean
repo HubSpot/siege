@@ -1,0 +1,15 @@
+#!/bin/bash
+
+make clean
+if [[ -a "configure" ]]; then
+  rm -f configure
+  rm -f aclocal.m4
+  rm -f `find . -name Makefile.in`
+  rm -f `find . -name config.h.in`
+  rm -f `find . -name PLATFORM`
+  rm -f `find . -name stamp-h.in`
+  rm -fR autom4te.cache
+  rm -fR dest
+else
+  echo "Not in a source directory!"
+fi

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+VERSION=`sed -ne 's/.*version_string.*"\(.*\)"\;/\1/p' ./src/version.c`
+
+utils/bootstrap
+./configure --prefix=/usr --sysconfdir=/etc
+make
+mkdir -p dest/usr/share/doc/${VERSION}
+mkdir -p dest/usr/share/man/man1
+mkdir -p dest/usr/share/man/man5
+mkdir -p dest/usr/share/man/man7
+mkdir -p dest/usr/bin
+mkdir -p dest/etc
+
+cp src/siege utils/bombardment utils/siege2csv.pl utils/siege.config dest/usr/bin
+chmod 755 dest/usr/bin/*
+
+cp doc/bombardment.1 dest/usr/share/man/man1; gzip dest/usr/share/man/man1/bombardment.1
+cp doc/siege.1 dest/usr/share/man/man1; gzip dest/usr/share/man/man1/siege.1
+cp doc/siege.config.1 dest/usr/share/man/man1; gzip dest/usr/share/man/man1/siege.config.1
+cp doc/siege2csv.1 dest/usr/share/man/man1; gzip dest/usr/share/man/man1/siege2csv.1
+cp doc/urls_txt.5 dest/usr/share/man/man5; gzip dest/usr/share/man/man5/urls_txt.5
+cp doc/layingsiege.7 dest/usr/share/man/man7; gzip dest/usr/share/man/man7/layingsiege.7
+cp doc/siegerc doc/urls.txt dest/etc
+
+cp AUTHORS COPYING ChangeLog KNOWNBUGS MACHINES NEWS PLATFORM html/README README.https dest/usr/share/doc/${VERSION}
+
+rm siege*.rpm
+
+fpm     -s dir\
+        -C dest \
+        -t rpm \
+        -n siege \
+        -v ${VERSION} \
+        --iteration 1hs.el6 \
+        --prefix / \
+        -m "Eric Abbott <eabbott@hubspot.com>" \
+        --vendor "HubSpot, Inc." \
+        --url "https://www.joedog.org/siege-home/" \
+        --description "Siege is an http load testing utility." \
+        usr/ etc/
