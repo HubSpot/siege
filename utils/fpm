@@ -10,7 +10,7 @@ mkdir -p dest/usr/share/man/man1
 mkdir -p dest/usr/share/man/man5
 mkdir -p dest/usr/share/man/man7
 mkdir -p dest/usr/bin
-mkdir -p dest/etc
+mkdir -p dest/etc/siege
 
 cp src/siege utils/bombardment utils/siege2csv.pl utils/siege.config dest/usr/bin
 chmod 755 dest/usr/bin/*
@@ -21,7 +21,7 @@ cp doc/siege.config.1 dest/usr/share/man/man1; gzip dest/usr/share/man/man1/sieg
 cp doc/siege2csv.1 dest/usr/share/man/man1; gzip dest/usr/share/man/man1/siege2csv.1
 cp doc/urls_txt.5 dest/usr/share/man/man5; gzip dest/usr/share/man/man5/urls_txt.5
 cp doc/layingsiege.7 dest/usr/share/man/man7; gzip dest/usr/share/man/man7/layingsiege.7
-cp doc/siegerc doc/urls.txt dest/etc
+cp doc/siegerc doc/urls.txt dest/etc/siege
 
 cp AUTHORS COPYING ChangeLog KNOWNBUGS MACHINES NEWS PLATFORM html/README README.https dest/usr/share/doc/${VERSION}
 
