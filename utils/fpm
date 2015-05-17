@@ -3,7 +3,7 @@
 VERSION=`sed -ne 's/.*version_string.*"\(.*\)"\;/\1/p' ./src/version.c`
 
 utils/bootstrap
-./configure --prefix=/usr --sysconfdir=/etc
+./configure --prefix=/usr --sysconfdir=/etc/siege
 make
 mkdir -p dest/usr/share/doc/${VERSION}
 mkdir -p dest/usr/share/man/man1
